@@ -5,15 +5,16 @@ import dev.wishingtree.branch.spider.server.{
   FileContextHandler,
   SpiderApp
 }
+import handlers.HabitContextHandler
 
 object Main extends SpiderApp {
 
-  val fileHandler =
+  val combined: ContextHandler =
     FileContextHandler(
       wd / "site",
       filters = ContextHandler.timingFilter :: Nil
-    )
+    ) |+| HabitContextHandler
 
-  ContextHandler.registerHandler(fileHandler)
+  ContextHandler.registerHandler(combined)
 
 }

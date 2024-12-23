@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark"/>
+    <link rel="stylesheet" href="../css/pico.violet.min.css"/>
+    <title>HABIT</title>
+    <style>
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: #0b1305 5px solid;
+        }
+
+        td div {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="container">
+    <div hx-get="/card/activities" hx-trigger="load">
+        <span>Loading table...</span>
+    </div>
+
+</main>
+</body>
+<script src="/js/htmx.min.js"></script>
+</html>
