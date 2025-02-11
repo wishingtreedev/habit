@@ -5,32 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark"/>
     <link rel="stylesheet" href="css/pico.violet.min.css"/>
-    <title>HABIT</title>
+    <title>HABIT - Make Good Habits Fun</title>
+    <style>
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary-hover));
+            border-radius: 1rem;
+            color: white;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background: var(--card-background-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 2rem;
+            background: var(--primary);
+            color: white;
+            transition: transform 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
 <main class="container">
-    <div>
-        <h1>Habit</h1>
-        <p>
-            Welcome to Habit, a bingo-like game to help kids develop good habits.
-            It's a weekly sticker-chart that encourages kids to do their chores, homework, and other tasks.
-        </p>
-        <p>
-            Each letter/column has a theme, like "sleep", "eating", "sharing", etc... with a simple task to do, like
-            "Try a new food", "Share a toy", "Brush teeth twice a day", etc... Kids get one sticker a day for each task
-            they complete.
-        </p>
-        <p>
-            The goal is to complete a row, column, or diagonal, and get a prize (prize provided by you 😁).
-        </p>
-        <p>
-            That card is styled to hopefully fill/print on a single page. Try and print the page, and check the preview.
-        </p>
-        <p>
-            Generate a random card <a href="/card">here</a>
+    <div class="hero">
+        <h1>Make Good Habits Fun!</h1>
+        <p class="lead">
+            Transform daily routines into an exciting game with our interactive habit-building bingo cards.
         </p>
     </div>
 
+    <div class="features">
+        <div class="feature-card">
+            <h3>🎯 How It Works</h3>
+            <p>
+                Each week, kids get a new bingo-style card filled with positive habits to develop. From personal care to helping others,
+                every task completed earns a sticker!
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🌟 Themed Challenges</h3>
+            <p>
+                Each column represents different life skills like "Sleep," "Exercise," and "Sharing." Complete daily tasks
+                like "Try a new food" or "Share with others" to fill your card.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🎉 Win Rewards</h3>
+            <p>
+                Complete a row, column, or diagonal to win prizes! It's a fun way to encourage responsibility
+                while teaching the importance of consistent good habits.
+            </p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 3rem 0;">
+        <p>Ready to start your habit-building journey?</p>
+        <a href="/card" class="cta-button">Generate Your Card</a>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            Print your card and start collecting stickers today!
+        </p>
+    </div>
 </main>
 </body>
 </html>
