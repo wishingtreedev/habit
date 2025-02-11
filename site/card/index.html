@@ -146,18 +146,36 @@
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
                 background: none;
+                color: black !important;
             }
 
             main.container {
                 box-shadow: none;
+                background: white !important;
             }
 
-            .pagebreak {
-                page-break-before: always;
+            .title {
+                color: black !important;
+                text-shadow: none;
+            }
+
+            th {
+                color: black !important;
+            }
+
+            td {
+                border-color: black !important;
+                background: white !important;
             }
 
             td div {
                 text-shadow: none;
+                color: black !important;
+                background: white !important;
+            }
+
+            .pagebreak {
+                page-break-before: always;
             }
         }
     </style>
