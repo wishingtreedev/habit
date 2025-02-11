@@ -2,6 +2,7 @@ package model
 
 import dev.wishingtree.branch.piggy.Sql
 import dev.wishingtree.branch.piggy.Sql.*
+import dev.wishingtree.branch.piggy.ResultSetParser
 
 case class Activity(id: Long, habit: Habit, description: String)
 
@@ -18,6 +19,8 @@ trait ActivityRepository {
 
 object ActivitySqLiteRepository extends ActivityRepository {
 
+  given parser: ResultSetParser[(Long, String, String)] = ResultSetParser.derived
+
   override def getNActivities(
       habit: Habit,
       n: Int
@@ -25,10 +28,10 @@ object ActivitySqLiteRepository extends ActivityRepository {
     habit match
       case Habit.Random =>
         Sql
-          .prepareQuery[Tuple1[Int], (Long, String, String)](
+          .prepareQuery[Int, (Long, String, String)](
             a =>
               ps"SELECT id, habit, description FROM activities ORDER BY RANDOM() LIMIT $a",
-            n.tuple1
+            n
           )
       case h            =>
         Sql

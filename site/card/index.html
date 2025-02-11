@@ -5,16 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark"/>
     <link rel="stylesheet" href="../css/pico.violet.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap">
     <title>HABIT</title>
     <style>
+        :root {
+            --border-color: #6b4de6;
+            --bg-color: #f8f6ff;
+            --pattern-color: #e9e4ff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --border-color: #8f7aeb;
+                --bg-color: #1a1a2e;
+                --pattern-color: #252547;
+            }
+        }
+
+        @page {
+            size: letter;
+            margin: 1cm;
+        }
+
+        body {
+            margin: 0;
+            padding: 1rem;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--pattern-color) 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        .title {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--border-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        main.container {
+            max-width: 100%;
+            padding: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 8px;
+            margin: -8px;
+        }
+
         th {
             text-align: center;
+            padding: 0.5rem;
+            font-family: 'Comic Neue', cursive;
         }
 
         td {
-            border: #0b1305 5px solid;
+            border: 3px solid var(--border-color);
             width: 20%;
             position: relative;
+            padding: 0;
+            border-radius: 10px;
+            background: white;
+            transition: transform 0.2s ease;
+        }
+
+        @media screen {
+            td:hover {
+                transform: scale(1.02);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
         }
 
         td div {
@@ -22,9 +89,47 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 0.5rem;
+            text-align: center;
+            height: 100%;
+            overflow: hidden;
+            font-size: 16px;
+            line-height: 1.2;
+            word-wrap: break-word;
+            border-radius: 7px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        /* Create a subtle gradient pattern for cells */
+        td:nth-child(5n+1) { background: linear-gradient(135deg, #fff6f6, white); }
+        td:nth-child(5n+2) { background: linear-gradient(135deg, #f6fff6, white); }
+        td:nth-child(5n+3) { background: linear-gradient(135deg, #f6f6ff, white); }
+        td:nth-child(5n+4) { background: linear-gradient(135deg, #fff6ff, white); }
+        td:nth-child(5n+5) { background: linear-gradient(135deg, #f6ffff, white); }
+
+        @media screen {
+            body {
+                max-width: 8.5in;
+                margin: 0 auto;
+            }
         }
 
         @media print {
+            @page {
+                size: letter;
+                margin: 1cm;
+            }
+            
+            body {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                background: none;
+            }
+
+            main.container {
+                box-shadow: none;
+            }
+
             .pagebreak {
                 page-break-before: always;
             }
@@ -33,10 +138,38 @@
 </head>
 <body>
 <main class="container">
+    <h1 class="title">My Habit Adventure!</h1>
     <div hx-get="/card/activities" hx-trigger="load" class="container-fluid">
         <span>Loading table...</span>
     </div>
 </main>
 </body>
 <script src="/js/htmx.min.js"></script>
+<script>
+    function adjustFontSize() {
+        const cells = document.querySelectorAll('td div');
+        cells.forEach(cell => {
+            let fontSize = 16; // Start with default font size
+            cell.style.fontSize = fontSize + 'px';
+            
+            while (
+                (cell.scrollHeight > cell.clientHeight || 
+                cell.scrollWidth > cell.clientWidth) && 
+                fontSize > 8
+            ) {
+                fontSize -= 0.5;
+                cell.style.fontSize = fontSize + 'px';
+            }
+        });
+    }
+
+    // Run on initial load
+    document.addEventListener('DOMContentLoaded', adjustFontSize);
+    
+    // Run when HTMX content is loaded
+    document.body.addEventListener('htmx:afterSettle', adjustFontSize);
+    
+    // Run on window resize
+    window.addEventListener('resize', adjustFontSize);
+</script>
 </html>

@@ -6,6 +6,9 @@ import dev.wishingtree.branch.spider.server.{Request, RequestHandler, Response}
 import model.Habit.{Diet, Exercise, Kindness, Organization, Sleep}
 import model.SQLite.given
 import model.{ActivitySqLiteRepository, Habit}
+import dev.wishingtree.branch.piggy.Sql.*
+import dev.wishingtree.branch.macaroni.runtimes.BranchExecutors
+import scala.concurrent.ExecutionContext
 
 object HabitRequestHandler extends RequestHandler[Unit, String] {
 
@@ -32,6 +35,7 @@ object HabitRequestHandler extends RequestHandler[Unit, String] {
         }.mkString("")
       }
 
+    given ec: ExecutionContext = BranchExecutors.executionContext
     val content = activities.executePool
       .map(rows => rows.mkString(""))
 
